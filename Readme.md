@@ -12,7 +12,7 @@ npm install adjust-engine
 
 ## API
 
-### `adjust = Adjust(options)`
+##### `adjust = Adjust(options)`
 
 Initialize an adjustment. Supports the following options:
 
@@ -34,7 +34,7 @@ Initialize an adjustment. Supports the following options:
 
 - flip <boolean>: Defaults to `true`. Automatically flip the element if the adjustment causes the attachment to be out of viewport. You should specify a `viewport_position` for flip to work properly.
 
-### `adjust(attachment_position, target_position, [ viewport_position ])`
+##### `adjust(attachment_position, target_position, [ viewport_position ])`
 
 Get a position of where the attachment should be. Here's a full example:
 
