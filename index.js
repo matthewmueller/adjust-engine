@@ -44,11 +44,15 @@ function Adjust(options) {
     var height = attachment_position.height || attachment_position.bottom - attachment_position.top
     var width = attachment_position.width || attachment_position.right - attachment_position.left
 
-    // get the offsets
-    var offset_y = target_position.top + target_position.bottom * target.y - attachment.y * height
-    var offset_x = target_position.left + target_position.right * target.x - attachment.x * width
+    // calculate the target height and width
+    var target_height = target_position.height || target_position.bottom - target_position.top
+    var target_width = target_position.width || target_position.right - target_position.left
 
-    // update the top and left with the offsets
+    // get the offsets
+    var offset_y = target.y * target_height - attachment.y * height
+    var offset_x = target.x * target_width - attachment.x * width
+
+    // update the position with the offsets
     var left = target_position.left + offset_x + offset.left
     var top = target_position.top + offset_y + offset.top
     var height = height - offset.top - offset.bottom

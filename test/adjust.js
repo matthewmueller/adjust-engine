@@ -19,20 +19,20 @@ describe('adjust-engine', function() {
     }
 
     var target = {
-      top: 0,
-      left: 0,
-      right: 100,
-      bottom: 100
+      top: 100,
+      left: 320,
+      right: 520,
+      bottom: 300
     }
 
     var coords = adjust(attachment, target)
     assert.deepEqual(coords, {
-      top: 25,
-      left: 25,
+      top: 175,
+      left: 395,
       width: 50,
       height: 50,
-      right: 75,
-      bottom: 75
+      right: 445,
+      bottom: 225
     })
   })
 
