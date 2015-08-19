@@ -1,0 +1,21 @@
+{
+  "name": "adjust-engine",
+  "version": "1.0.0",
+  "description": "adjust an element relative to another element",
+  "keywords": [
+    "adjust",
+    "position"
+  ],
+  "author": "Matthew Mueller <mattmuelle@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/MatthewMueller/adjust-engine.git"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "object-assign": "^3.0.0"
+  }
+}
