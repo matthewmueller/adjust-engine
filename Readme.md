@@ -37,7 +37,7 @@ right: 50
 top: -25
 ```
 
-- flip <boolean>: Defaults to `true`. Automatically flip the element if the adjustment causes the attachment to be out of viewport. You should specify a `viewport_position` for flip to work properly.
+- **flip** (boolean): Defaults to `true`. Automatically flip the element if the adjustment causes the attachment to be out of viewport. You should specify a `viewport_position` for flip to work properly.
 
 ##### `adjust(attachment_position, target_position, [ viewport_position ])`
 
