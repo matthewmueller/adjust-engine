@@ -36,7 +36,7 @@ describe('adjust-engine', function() {
     })
   })
 
-  it('target: left bottom, attachment: centered middle', function() {
+  it('target: left bottom, attachment: center middle', function() {
     var adjust = Adjust({
       attachment: 'center middle',
       target: 'left bottom'
