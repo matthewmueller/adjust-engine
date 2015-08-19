@@ -16,7 +16,7 @@ npm install adjust-engine
 
 Initialize an adjustment. Supports the following options:
 
-- attachment <string>: Alignment point of the element you're moving. Supports CSS style adjustments.
+- **attachment** (string): Alignment point of the element you're moving. Supports CSS style adjustments.
   Here are some possibilities:
 
 ```
@@ -26,8 +26,9 @@ center middle
 10% 16% (x y)
 ```
 
-- target <string>: Alignment point of the target (or host) element. Supports same CSS style adjustments as `attachment`.
-- offset <object>: Specify an offset to apply to the attachment element. Here's some examples
+- **target** (string): Alignment point of the target (or host) element. Supports same CSS style adjustments as `attachment`.
+
+- **offset** (object): Specify an offset to apply to the attachment element. Here's some examples:
 
 ```
 bottom: -10
