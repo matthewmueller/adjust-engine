@@ -1,8 +1,7 @@
 
 # adjust-engine
 
-  Position an element relative to another element. This repository is just
-  the calculation engine behind the adjustments.
+  Position an element relative to another element. This repository is the workhorse behind [adjust](https://github.com/matthewmueller/adjust).
 
 ## Installation
 
