@@ -1,4 +1,11 @@
 
+2.0.0 / 2015-08-24
+==================
+
+  * BREAKING: changed offset calculation to move object, but not affect the height or width
+  * better defaults
+  * supports flipping offsets.
+
 1.0.1 / 2015-08-19
 ==================
 
