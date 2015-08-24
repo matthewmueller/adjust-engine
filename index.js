@@ -2,7 +2,9 @@
  * Module Dependencies
  */
 
+var expression = require('./lib/expression')
 var assign = require('object-assign')
+var mirror = require('./lib/mirror')
 
 /**
  * Export `Adjust`
@@ -32,12 +34,11 @@ function Adjust(options) {
   options = options || {}
   options.flip = undefined === options.flip ? true : options.flip
   options.attachment = options.attachment || 'center middle'
-  options.target = options.target || options.attachment
   options.offset = options.offset || {}
 
   var attachment = expression(options.attachment)
-  var offset = assign(offsets, options.offset)
-  var target = expression(options.target)
+  var offset = assign({}, offsets, options.offset)
+  var target = options.target ? expression(options.target) : mirror(attachment)
 
   return function adjust(attachment_position, target_position, viewport_position) {
     // use the width/height or compute the width/height
@@ -53,35 +54,37 @@ function Adjust(options) {
     var offset_x = target.x * target_width - attachment.x * width
 
     // update the position with the offsets
-    var left = target_position.left + offset_x + offset.left
-    var top = target_position.top + offset_y + offset.top
-    var height = height - offset.top - offset.bottom
-    var width = width - offset.left - offset.right
-    var bottom = top + height + offset.bottom
-    var right = left + width + offset.right
+    var left = target_position.left + offset_x + offset.left - offset.right
+    var top = target_position.top + offset_y + offset.top - offset.bottom
+    var bottom = top + height + offset.bottom - offset.top
+    var right = left + width + offset.right - offset.left
 
     // check if we need to flip
     if (options.flip && viewport_position) {
       // out of viewport on the left side or right side,
       // and we have room on the right or left
       if (left < viewport_position.left && target_position.right + width <= viewport_position.right) {
-        left = target_position.right
-        right = left + width
+        // flip right
+        left = target_position.right + offset.right - offset.left
+        right = left + width + offset.left - offset.right
       } else
       if (right > viewport_position.right && target_position.left - width >= viewport_position.left) {
-        right = target_position.left
-        left = right - width
+        // flip left
+        right = target_position.left + offset.left - offset.right
+        left = right - width + offset.right - offset.left
       }
 
       // out of viewport on the top or bottom,
       // and we have room on the bottom or top
       if (top < viewport_position.top && target_position.bottom + height <= viewport_position.bottom) {
-        top = target_position.bottom
-        bottom = top + height
+        // flip bottom
+        top = target_position.bottom + offset.bottom - offset.top
+        bottom = top + height + offset.top - offset.bottom
       } else
       if (bottom > viewport_position.bottom && target_position.top - height >= viewport_position.top) {
-        bottom = target_position.top
-        top = bottom - height
+        // flip top
+        bottom = target_position.top + offset.top - offset.bottom
+        top = bottom - height + offset.bottom - offset.top
       }
     }
 
@@ -94,45 +97,4 @@ function Adjust(options) {
       bottom: top + height
     }
   }
-}
-
-/**
- * Parse the expression
- *
- * @param {String} expr
- * @return {Object}
- */
-
-function expression(expr) {
-  var tokens = expr.split(/\s+/)
-  var out = {}
-
-  tokens.forEach(function(token, i) {
-    switch (token) {
-      case 'center': return out.x = 0.5
-      case 'middle': return out.y = 0.5
-      case 'bottom': return out.y = 1
-      case 'right': return out.x = 1
-      case 'left': return out.x = 0
-      case 'top': return out.y = 0
-      default:
-        return i % 2
-          ? out.y = percentage(token)
-          : out.x = percentage(token)
-    }
-  })
-
-  return out
-}
-
-/**
- * To percentage
- *
- * @param {String} val
- * @return {Number}
- */
-
-function percentage (val) {
-  var float = parseFloat(val)
-  return isNaN(float) ? 0 : float / 100
 }
