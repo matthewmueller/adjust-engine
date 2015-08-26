@@ -2,7 +2,7 @@
  * Module Dependencies
  */
 
-var expression = require('./lib/expression')
+var expr = require('./lib/expression')
 var assign = require('object-assign')
 var mirror = require('./lib/mirror')
 
@@ -33,12 +33,16 @@ var offsets = {
 function Adjust(options) {
   options = options || {}
   options.flip = undefined === options.flip ? true : options.flip
-  options.attachment = options.attachment || 'center middle'
   options.offset = options.offset || {}
 
-  var attachment = expression(options.attachment)
+  if (!options.attachment && !options.target) {
+    throw new Error('adjust requires either an attachment or a target')
+  }
+
   var offset = assign({}, offsets, options.offset)
-  var target = options.target ? expression(options.target) : mirror(attachment)
+  var attachment = options.attachment ? expr(options.attachment) : mirror(expr(options.target))
+  var target = options.target ? expr(options.target) : mirror(expr(options.attachment))
+  var orientation = attachment;
 
   return function adjust(attachment_position, target_position, viewport_position) {
     // use the width/height or compute the width/height
@@ -67,11 +71,13 @@ function Adjust(options) {
         // flip right
         left = target_position.right + offset.right - offset.left
         right = left + width + offset.left - offset.right
+        orientation.x = mirror(orientation.x)
       } else
       if (right > viewport_position.right && target_position.left - width >= viewport_position.left) {
         // flip left
         right = target_position.left + offset.left - offset.right
         left = right - width + offset.right - offset.left
+        orientation.x = mirror(orientation.x)
       }
 
       // out of viewport on the top or bottom,
@@ -80,11 +86,13 @@ function Adjust(options) {
         // flip bottom
         top = target_position.bottom + offset.bottom - offset.top
         bottom = top + height + offset.top - offset.bottom
+        orientation.y = mirror(orientation.y)
       } else
       if (bottom > viewport_position.bottom && target_position.top - height >= viewport_position.top) {
         // flip top
         bottom = target_position.top + offset.top - offset.bottom
         top = bottom - height + offset.bottom - offset.top
+        orientation.y = mirror(orientation.y)
       }
     }
 
@@ -94,7 +102,8 @@ function Adjust(options) {
       width: width,
       height: height,
       right: left + width,
-      bottom: top + height
+      bottom: top + height,
+      orientation: expr(orientation)
     }
   }
 }

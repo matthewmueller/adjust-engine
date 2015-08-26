@@ -32,7 +32,8 @@ describe('adjust-engine', function() {
       width: 50,
       height: 50,
       right: 445,
-      bottom: 225
+      bottom: 225,
+      orientation: 'center middle'
     })
   })
 
@@ -61,7 +62,8 @@ describe('adjust-engine', function() {
       width: 50,
       height: 50,
       right: 25,
-      bottom: 125
+      bottom: 125,
+      orientation: 'center middle'
     })
   })
 
@@ -99,7 +101,8 @@ describe('adjust-engine', function() {
       width: 50,
       height: 50,
       right: 150,
-      bottom: 75
+      bottom: 75,
+      orientation: 'left middle'
     })
   })
 
@@ -135,7 +138,8 @@ describe('adjust-engine', function() {
       width: 50,
       height: 50,
       right: 50,
-      bottom: 75
+      bottom: 75,
+      orientation: 'right middle'
     })
   })
 
@@ -175,7 +179,8 @@ describe('adjust-engine', function() {
       width: 50,
       height: 50,
       right: 65,
-      bottom: 200
+      bottom: 200,
+      orientation: 'center top'
     })
   })
 
@@ -244,7 +249,8 @@ describe('offsets', function() {
       width: 50,
       height: 50,
       right: 60,
-      bottom: 60
+      bottom: 60,
+      orientation: 'center middle'
     })
   })
 
@@ -277,7 +283,8 @@ describe('offsets', function() {
       width: 50,
       height: 50,
       right: 40,
-      bottom: 40
+      bottom: 40,
+      orientation: 'center middle'
     })
   })
 
@@ -310,7 +317,8 @@ describe('offsets', function() {
       width: 50,
       height: 50,
       right: 60,
-      bottom: 60
+      bottom: 60,
+      orientation: 'center middle'
     })
   })
 
@@ -345,7 +353,8 @@ describe('offsets', function() {
       width: 50,
       height: 50,
       right: 50,
-      bottom: 50
+      bottom: 50,
+      orientation: 'center middle'
     })
   })
 })
