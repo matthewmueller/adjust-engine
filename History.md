@@ -1,4 +1,9 @@
 
+2.0.2 / 2015-08-31
+==================
+
+  * add default and fix orientation messing with attachment reference
+
 2.0.1 / 2015-08-25
 ==================
 
