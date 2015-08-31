@@ -35,14 +35,15 @@ function Adjust(options) {
   options.flip = undefined === options.flip ? true : options.flip
   options.offset = options.offset || {}
 
+  // default to center middle
   if (!options.attachment && !options.target) {
-    throw new Error('adjust requires either an attachment or a target')
+    options.attachment = 'center middle'
   }
 
   var offset = assign({}, offsets, options.offset)
   var attachment = options.attachment ? expr(options.attachment) : mirror(expr(options.target))
   var target = options.target ? expr(options.target) : mirror(expr(options.attachment))
-  var orientation = attachment;
+  var orientation = assign({}, attachment);
 
   return function adjust(attachment_position, target_position, viewport_position) {
     // use the width/height or compute the width/height
