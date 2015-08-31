@@ -43,12 +43,12 @@ function Adjust(options) {
   var offset = assign({}, offsets, options.offset)
   var attachment = options.attachment ? expr(options.attachment) : mirror(expr(options.target))
   var target = options.target ? expr(options.target) : mirror(expr(options.attachment))
-  var orientation = assign({}, attachment);
 
   return function adjust(attachment_position, target_position, viewport_position) {
     // use the width/height or compute the width/height
     var height = attachment_position.height || attachment_position.bottom - attachment_position.top
     var width = attachment_position.width || attachment_position.right - attachment_position.left
+    var orientation = assign({}, attachment);
 
     // calculate the target height and width
     var target_height = target_position.height || target_position.bottom - target_position.top
