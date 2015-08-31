@@ -1,4 +1,9 @@
 
+2.0.4 / 2015-08-31
+==================
+
+  * simplify offsets to just being x and y. works better for flipping
+
 2.0.3 / 2015-08-31
 ==================
 
