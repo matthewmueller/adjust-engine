@@ -13,17 +13,6 @@ var mirror = require('./lib/mirror')
 module.exports = Adjust
 
 /**
- * Default offsets
- */
-
-var offsets = {
-  bottom: 0,
-  right: 0,
-  left: 0,
-  top: 0
-}
-
-/**
  * Initialize `Adjust`
  *
  * @param {Object} options
@@ -40,7 +29,7 @@ function Adjust(options) {
     options.attachment = 'center middle'
   }
 
-  var offset = assign({}, offsets, options.offset)
+  var offset = assign({ x: 0, y: 0 }, options.offset)
   var attachment = options.attachment ? expr(options.attachment) : mirror(expr(options.target))
   var target = options.target ? expr(options.target) : mirror(expr(options.attachment))
 
@@ -59,10 +48,10 @@ function Adjust(options) {
     var offset_x = target.x * target_width - attachment.x * width
 
     // update the position with the offsets
-    var left = target_position.left + offset_x + offset.left - offset.right
-    var top = target_position.top + offset_y + offset.top - offset.bottom
-    var bottom = top + height + offset.bottom - offset.top
-    var right = left + width + offset.right - offset.left
+    var left = target_position.left + offset_x + offset.x
+    var top = target_position.top + offset_y + offset.y
+    var bottom = top + height
+    var right = left + width
 
     // check if we need to flip
     if (options.flip && viewport_position) {
@@ -70,14 +59,14 @@ function Adjust(options) {
       // and we have room on the right or left
       if (left < viewport_position.left && target_position.right + width <= viewport_position.right) {
         // flip right
-        left = target_position.right + offset.right - offset.left
-        right = left + width + offset.left - offset.right
+        left = target_position.right - offset.x
+        right = left + width
         orientation.x = mirror(orientation.x)
       } else
       if (right > viewport_position.right && target_position.left - width >= viewport_position.left) {
         // flip left
-        right = target_position.left + offset.left - offset.right
-        left = right - width + offset.right - offset.left
+        right = target_position.left - offset.x
+        left = right - width
         orientation.x = mirror(orientation.x)
       }
 
@@ -85,14 +74,14 @@ function Adjust(options) {
       // and we have room on the bottom or top
       if (top < viewport_position.top && target_position.bottom + height <= viewport_position.bottom) {
         // flip bottom
-        top = target_position.bottom + offset.bottom - offset.top
-        bottom = top + height + offset.top - offset.bottom
+        top = target_position.bottom - offset.y
+        bottom = top + height
         orientation.y = mirror(orientation.y)
       } else
       if (bottom > viewport_position.bottom && target_position.top - height >= viewport_position.top) {
         // flip top
-        bottom = target_position.top + offset.top - offset.bottom
-        top = bottom - height + offset.bottom - offset.top
+        bottom = target_position.top - offset.y
+        top = bottom - height
         orientation.y = mirror(orientation.y)
       }
     }
@@ -102,8 +91,8 @@ function Adjust(options) {
       left: left,
       width: width,
       height: height,
-      right: left + width,
-      bottom: top + height,
+      right: right,
+      bottom: bottom,
       orientation: expr(orientation)
     }
   }

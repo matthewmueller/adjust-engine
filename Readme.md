@@ -27,13 +27,11 @@ center middle
 
 - **target** (string): Alignment point of the target (or host) element. Supports same CSS style adjustments as `attachment`.
 
-- **offset** (object): Specify an offset to apply to the attachment element. Here's some examples:
+- **offset** (object): Specify an offset to apply to the attachment element:
 
 ```
-bottom: -10
-left: 100
-right: 50
-top: -25
+x: 10
+y: -10
 ```
 
 - **flip** (boolean): Defaults to `true`. Automatically flip the element if the adjustment causes the attachment to be out of viewport. You should specify a `viewport_position` for flip to work properly.

@@ -148,8 +148,8 @@ describe('adjust-engine', function() {
       attachment: 'center bottom',
       target: 'center top',
       offset: {
-        bottom: 50,
-        right: 10
+        y: -50,
+        x: 10
       }
     });
 
@@ -169,16 +169,16 @@ describe('adjust-engine', function() {
       left: 0,
       top: 0,
       right: 100,
-      bottom: 150
+      bottom: 200
     }
 
     var coords = adjust(attachment, target, viewport);
     assert.deepEqual(coords, {
       top: 150,
-      left: 15,
+      left: 35,
       width: 50,
       height: 50,
-      right: 65,
+      right: 85,
       bottom: 200,
       orientation: 'center top'
     })
@@ -237,8 +237,8 @@ describe('offsets', function() {
       attachment: 'center middle',
       target: 'center middle',
       offset: {
-        left: 10,
-        top: 10
+        x: 10,
+        y: 10
       }
     })
 
@@ -250,40 +250,6 @@ describe('offsets', function() {
       height: 50,
       right: 60,
       bottom: 60,
-      orientation: 'center middle'
-    })
-  })
-
-  it('should support bottom / right offsets', function() {
-    var attachment = {
-      height: 50,
-      width: 50
-    }
-
-    var target = {
-      left: 0,
-      right: 50,
-      top: 0,
-      bottom: 50
-    }
-
-    var adjust = Adjust({
-      attachment: 'center middle',
-      target: 'center middle',
-      offset: {
-        bottom: 10,
-        right: 10
-      }
-    })
-
-    var coords = adjust(attachment, target)
-    assert.deepEqual(coords, {
-      top: -10,
-      left: -10,
-      width: 50,
-      height: 50,
-      right: 40,
-      bottom: 40,
       orientation: 'center middle'
     })
   })
@@ -305,55 +271,19 @@ describe('offsets', function() {
       attachment: 'center middle',
       target: 'center middle',
       offset: {
-        bottom: -10,
-        right: -10
+        x: -10,
+        y: -10
       }
     })
 
     var coords = adjust(attachment, target)
     assert.deepEqual(coords, {
-      top: 10,
-      left: 10,
+      top: -10,
+      left: -10,
       width: 50,
       height: 50,
-      right: 60,
-      bottom: 60,
-      orientation: 'center middle'
-    })
-  })
-
-  it('should support both being set and offsetting each other', function() {
-    var attachment = {
-      height: 50,
-      width: 50
-    }
-
-    var target = {
-      left: 0,
-      right: 50,
-      top: 0,
-      bottom: 50
-    }
-
-    var adjust = Adjust({
-      attachment: 'center middle',
-      target: 'center middle',
-      offset: {
-        top: 10,
-        left: 10,
-        bottom: 10,
-        right: 10
-      }
-    })
-
-    var coords = adjust(attachment, target)
-    assert.deepEqual(coords, {
-      top: 0,
-      left: 0,
-      width: 50,
-      height: 50,
-      right: 50,
-      bottom: 50,
+      right: 40,
+      bottom: 40,
       orientation: 'center middle'
     })
   })
